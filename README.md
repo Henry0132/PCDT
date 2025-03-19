@@ -41,6 +41,12 @@ Now, you can run this.
 
 ## Quick Start
 
+If you want use DT_models, please pretrain DT_models:
+
+```
+python pretrain.py --seed 123 --another_hyperparameters ...
+```
+
 When your environment is ready, you could run experiment. For example:
 
 ```
