@@ -47,6 +47,26 @@ If you want use DT_models, please pretrain DT_models:
 python pretrain.py --seed 123 --another_hyperparameters ...
 ```
 
+The models are organized according to the following structure:
+
+```
+└── PCDT
+    ├── D4RL
+    ├── decision_transformer
+    ├── DT_bcmodels
+    │   └── ${env_name1}
+    │	│
+    │	└── ${env_name2}
+    │	│
+    │	└── ...
+    ├── experiment.py
+    ├── logger.py
+    ├── pretrain,py
+    └── tabulate.py
+```
+
+
+
 When your environment is ready, you could run experiment. For example:
 
 ```
