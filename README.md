@@ -1,6 +1,6 @@
 # PCDT: Pessimistic Critic Decision Transformer for Offline Reinforcement Learning
 
-PCDT is a approach to Offline Reinforcement Learning where uses pessimistic Q-function  to enhance Decision Transformer stitching ability.
+PCDT is a approach to Offline Reinforcement Learning where uses pessimistic Q-function  to enhance Decision Transformer stitching ability. This repo references DT(https://github.com/kzl/decision-transformer) and QRT(https://github.com/charleshsc/QT).
 
 ## Environment
 
