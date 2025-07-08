@@ -16,7 +16,7 @@ import time
 from decision_transformer.evaluation.evaluate_episodes import evaluate_episode_rtg
 from decision_transformer.training.critic_trainer import CriticTrainer
 from decision_transformer.training.ql_trainer import Trainer
-from decision_transformer.training.s2vr_trainer import Trainer as Agent
+from decision_transformer.training.pcdt_trainer import Trainer as Agent
 # from decision_transformer.models.Critic_DT import DecisionTransformer, Critic
 from decision_transformer.models.PC_DT import DecisionTransformer, Critic
 from logger import logger, setup_logger
