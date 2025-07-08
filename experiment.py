@@ -312,8 +312,8 @@ def experiment(
             
             # padding and state + reward normalization
             tlen = s[-1].shape[1]
-            s[-1] = np.concatenate([np.zeros((1, max_len - tlen, state_dim)), s[-1]], axis=1)
-            s[-1] = (s[-1] - state_mean) / state_std
+[-1] = np.concatenate([np.zeros((1, max_len - tlen, state_dim)), s[-1]], axis=1)
+[-1] = ([-1] - state_mean) / state_std
             a[-1] = np.concatenate([np.zeros((1, max_len - tlen, act_dim)), a[-1]], axis=1)
             r[-1] = np.concatenate([np.zeros((1, max_len - tlen, 1)), r[-1]], axis=1)
             target_a[-1] = np.concatenate([np.zeros((1, max_len - tlen, act_dim)), target_a[-1]], axis=1)
@@ -387,33 +387,7 @@ def experiment(
     bcmodel = bcmodel.to(device=device)
     model = model.to(device=device)
     critic = critic.to(device=device)
-    if variant['exp_name'] == 'qt':
-        trainer = Trainer(
-            model=model,
-            critic=critic,
-            batch_size=batch_size,
-            tau=variant['tau'],
-            discount=variant['discount'],
-            get_batch=get_batch,
-            loss_fn=lambda s_hat, a_hat, r_hat, s, a, r: torch.mean((a_hat - a)**2),
-            eval_fns=[eval_episodes(env_targets)],
-            max_q_backup=variant['max_q_backup'],
-            eta=variant['eta'],
-            eta2=variant['eta2'],
-            ema_decay=0.995,
-            step_start_ema=1000,
-            update_ema_every=5,
-            lr=variant['learning_rate'],
-            weight_decay=variant['weight_decay'],
-            lr_decay=variant['lr_decay'],
-            lr_maxt=variant['max_iters'],
-            lr_min=variant['lr_min'],
-            grad_norm=variant['grad_norm'],
-            scale=scale,
-            k_rewards=variant['k_rewards'],
-            use_discount=variant['use_discount']
-        )
-    if variant['exp_name'] == 's2vr':
+    if variant['exp_name'] == 'pcdt':
         bcmodel_path = f'DT_bcmodels/{env_name}-{dataset}-v{dversion}.pt'
         bcmodel.load_state_dict(torch.load(bcmodel_path), strict=False)
         trainer = Agent(
@@ -449,33 +423,6 @@ def experiment(
         print("DT_bcmodel has loaded")
         print("**********************")
 
-    # if variant['exp_name'] == 'critic':
-    #     trainer = CriticTrainer(
-    #         model=model,
-    #         critic=critic,
-    #         batch_size=batch_size,
-    #         tau=variant['tau'],
-    #         discount=variant['discount'],
-    #         get_batch=get_batch,
-    #         loss_fn=lambda s_hat, a_hat, r_hat, s, a, r: torch.mean((a_hat - a)**2),
-    #         eval_fns=[eval_episodes(env_targets)],
-    #         max_q_backup=variant['max_q_backup'],
-    #         eta=variant['eta'],
-    #         eta2=variant['eta2'],
-    #         ema_decay=0.995,
-    #         step_start_ema=1000,
-    #         update_ema_every=5,
-    #         lr=variant['learning_rate'],
-    #         weight_decay=variant['weight_decay'],
-    #         lr_decay=variant['lr_decay'],
-    #         lr_maxt=variant['max_iters'],
-    #         lr_min=variant['lr_min'],
-    #         grad_norm=variant['grad_norm'],
-    #         scale=scale,
-    #         k_rewards=variant['k_rewards'],
-    #         use_discount=variant['use_discount']
-    #     )
-
     best_ret = -10000
     best_nor_ret = -1000
     best_iter = -1
@@ -504,7 +451,7 @@ def experiment(
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--exp_name', type=str, default='s2vr')
+    parser.add_argument('--exp_name', type=str, default='pcdt')
     parser.add_argument('--seed', type=int, default=123)
     parser.add_argument('--env', type=str, default='antmaze')
     parser.add_argument('--dataset', type=str, default='umaze')  # medium, medium-replay, medium-expert, expert
