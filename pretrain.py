@@ -14,8 +14,7 @@ import pathlib
 import time
 
 from decision_transformer.evaluation.evaluate_episodes import evaluate_episode_rtg
-from decision_transformer.training.ql_trainer import Trainer
-from decision_transformer.models.ql_DT import DecisionTransformer
+from decision_transformer.models.decision_transformer import DecisionTransformer
 from logger import logger, setup_logger
 
 

@@ -14,9 +14,7 @@ import pathlib
 import time
 
 from decision_transformer.evaluation.evaluate_episodes import evaluate_episode_rtg
-from decision_transformer.training.critic_trainer import CriticTrainer
 from decision_transformer.training.pcdt_trainer import Trainer as Agent
-# from decision_transformer.models.Critic_DT import DecisionTransformer, Critic
 from decision_transformer.models.PC_DT import DecisionTransformer, Critic
 from logger import logger, setup_logger
 from torch.utils.tensorboard import SummaryWriter
@@ -312,8 +310,8 @@ def experiment(
             
             # padding and state + reward normalization
             tlen = s[-1].shape[1]
-[-1] = np.concatenate([np.zeros((1, max_len - tlen, state_dim)), s[-1]], axis=1)
-[-1] = ([-1] - state_mean) / state_std
+            s[-1] = np.concatenate([np.zeros((1, max_len - tlen, state_dim)), s[-1]], axis=1)
+            s[-1] = (s[-1] - state_mean) / state_std
             a[-1] = np.concatenate([np.zeros((1, max_len - tlen, act_dim)), a[-1]], axis=1)
             r[-1] = np.concatenate([np.zeros((1, max_len - tlen, 1)), r[-1]], axis=1)
             target_a[-1] = np.concatenate([np.zeros((1, max_len - tlen, act_dim)), target_a[-1]], axis=1)
@@ -453,8 +451,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--exp_name', type=str, default='pcdt')
     parser.add_argument('--seed', type=int, default=123)
-    parser.add_argument('--env', type=str, default='antmaze')
-    parser.add_argument('--dataset', type=str, default='umaze')  # medium, medium-replay, medium-expert, expert
+    parser.add_argument('--env', type=str, default='hopper')
+    parser.add_argument('--dataset', type=str, default='medium')  # medium, medium-replay, medium-expert, expert
     parser.add_argument('--mode', type=str, default='normal')  # normal for standard setting, delayed for sparse
     parser.add_argument('--K', type=int, default=20)
     parser.add_argument('--pct_traj', type=float, default=1.)
