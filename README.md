@@ -76,3 +76,16 @@ python experiment.py --seed 123 --another_hyperparameters ...
 ## Citation
 
 If you find this work is relevant with your research or applications, please feel free to cite our work!
+```
+@ARTICLE{11078293,
+  author={Wang, Xuesong and Zhang, Hengrui and Zhang, Jiazhi and Philip Chen, C. L. and Cheng, Yuhu},
+  journal={IEEE Transactions on Systems, Man, and Cybernetics: Systems}, 
+  title={PCDT: Pessimistic Critic Decision Transformer for Offline Reinforcement Learning}, 
+  year={2025},
+  volume={55},
+  number={10},
+  pages={7247-7258},
+  doi={10.1109/TSMC.2025.3583392}}
+```
+
+
